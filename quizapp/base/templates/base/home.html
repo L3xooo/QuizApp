@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class = "container">
+        <nav>
+            <div class = "navbar">Quiz App By L3xooo</div>
+        </nav>
+        <form class = "form" action = "" method = "POST">
+            <input name = 'name' placeholder="Name">
+            {% csrf_token %}
+            <button type = "submit">Start quiz</button>
+        </form>
+    </div>
+</body>
+</html>
+<style>
+
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar{
+    border-radius: 10px;
+    margin: 50px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px black;
+    font-size: 30px;
+    background-color: coral;
+    width: 500px;
+    text-align: center;
+}
+
+.form{
+    width:500px;
+    background-color: rgb(248, 142, 103);
+    height: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 5px black;
+}
+</style>
+
