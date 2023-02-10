@@ -8,23 +8,146 @@
 </head>
 <body>
     <h1>Result of {{quiz}}</h1>
-    {% for q in questions %}
-        <div>{{q.question}}</div>
-        <div class = "answers">
-            {% for answer in q.choices %}
-            <div class = "test"> 
-                {% if answer == q.playerChoice %}
-                    <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" checked >{{answer}}
-                {% else %}
-                    <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}">{{answer}}
-                {% endif %}
-            </div>
-            {% endfor %}  
-        </div>  
-    {% endfor %}
+    <div class = "container">   
+        {% for q in questions %}
+            <div class = "question">
+                <div class = "q__header">
+                    <div>
+                        <h4>{{q.number}}.{{q.question}}</h4>
+                    </div>
+                    <div class = q__info>
+                        <h6>Category : {{q.category}}</h6>
+                        <h6>Difficulty : {{q.difficulty}}</h6>
+                    </div>
+                </div>
+                <div class = "answers">          
+                    {% for answer in q.choices %}
+
+                    {% if answer == q.playerChoice %}
+                        {% if answer == q.correctAnswer %}
+                            <div class = "choice correct" id = "{{q.number}}"> 
+                                <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
+                                <p>{{answer}}</p>
+                            </div>
+                        {% else %}
+                            <div class = "choice wrong" id = "{{q.number}}"> 
+                                <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
+                                <p>{{answer}}</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class = "choice" id = "{{q.number}}"> 
+                            <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
+                            <p>{{answer}}</p>
+                        </div>
+                    {% endif %}
+                    {% endfor %}  
+                </div>  
+          </div>  
+          {% endfor %}
+    </div>
 </body>
 </html>
 
 <script>
     $("input:checkbox").click(function() { return false; });
 </script>
+
+<style>
+body{
+  background: rgb(193,193,222);
+  background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
+  font-family: "Fira Sans", sans-serif;
+}
+
+h1{
+    box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  background-color: rgb(219, 219, 236);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px;
+  width: 500px;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h4{
+  font-size: 14px;
+  padding: 0px;
+  margin: 10px;
+}
+
+.container{
+  margin: auto;
+  max-width: 1200px;
+}
+
+.q__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.q__info{
+  width: 250px;
+  text-align: left;
+  margin-right: 20px;
+}
+
+.q__info h6{
+  margin: 5px;
+}
+
+.box{
+  width: 10px;
+}
+.answers{
+  display: flex;
+  flex-direction: column;
+}
+
+.question{
+  box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  background-color: rgb(219, 219, 236);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px
+}
+
+
+
+.choice{
+  background-color: rgb(247, 247, 255);
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.active{
+  border: 2px solid rgb(53, 53, 116);
+}
+
+.wrong{
+    border: 2px solid red;
+}
+
+.correct{
+    border: 2px solid green;
+}
+
+.choice p{
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+.choice input{
+  visibility: hidden;
+}
+</style>

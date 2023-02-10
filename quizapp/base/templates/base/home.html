@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
     <div class = "container">
-        <nav>
+        <div class = "left">
             <div class = "navbar">Quiz App By L3xooo</div>
-        </nav>
-        <form class = "form" action = "" method = "POST">
-            <input name = 'name' placeholder="Name">
-            {% csrf_token %}
-            <button type = "submit">Start quiz</button>
-        </form>
-    </div>
-</body>
-</html>
-<style>
+        
+            <form class = "form" action = "" method = "POST">
+                <input name = 'name' placeholder="Name">
+                {% csrf_token %}
+                <button type = "submit">Start quiz</button>
+            </form>
 
+        </div>
+        
+        <div class = "right">
+            <h3>Quiz History</h3>
+            {% for quiz in quizs %}
+                <div class = "quiz">
+                    {{quiz}}
+                    {{quiz.player}}
+                    {{quiz.correctQuestions}}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+<style>
+body{
+  background: rgb(193,193,222);
+  background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
+  font-family: "Fira Sans", sans-serif;
+}
 
 nav{
     display: flex;
@@ -28,12 +37,12 @@ nav{
     justify-content: center;
 }
 .container{
-    height: 100%;
     margin: auto;
+    max-width: 1200px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    height: 100%;
 }
 
 .navbar{
@@ -42,7 +51,7 @@ nav{
     padding: 10px;
     box-shadow: 5px 5px 5px black;
     font-size: 30px;
-    background-color: coral;
+    background-color: rgb(219, 219, 236);
     width: 500px;
     text-align: center;
 }
@@ -57,5 +66,21 @@ nav{
     align-items: center;
     box-shadow: 5px 5px 5px black;
 }
+
+.right{
+    background-color: rgb(219, 219, 236);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px
+}
+
+.quiz{
+    display: flex;
+    background-color: rgb(247, 247, 255);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
 </style>
 

@@ -6,16 +6,15 @@ import numpy as np
 # Create your views here.
 
 def createPlayer(request):
-    context = {}
+    quizs = Quiz.objects.all()[:5]
+
+    context = {"quizs":quizs}
     if request.method == "POST":
         name = request.POST.get('name')
         player = Player.objects.create(name = name)
         player.save()
-        print(player)
         quiz = Quiz.objects.create(player = player)
         quiz.save()
-        print(quiz)
-        print(quiz.id)
         x = requests.get("https://the-trivia-api.com/api/questions")
         print(x.json())
         number = 1
@@ -23,8 +22,6 @@ def createPlayer(request):
             array = object["incorrectAnswers"].copy()
             array.append(object["correctAnswer"])
             random.shuffle(array)
-            print(array)
-            print(object["incorrectAnswers"])
             q = Question.objects.create(
                 number = number, 
                 category = object["category"],
@@ -45,15 +42,11 @@ def quizView(request,pk):
     questions = Question.objects.filter(quiz = quiz)
     print(questions)
     if request.method == "POST":
-        test = request.POST.get("test")
-        print(test)
         for obj in questions:
             print("---")
             for x in obj.choices:
                 test = request.POST.get(x)
                 if test is not None:
-                    # print(type(obj))
-                    # print(type(obj.playerChoice))
                     obj.playerChoice = x
                     obj.save()
                     print(obj.playerChoice)
@@ -62,8 +55,9 @@ def quizView(request,pk):
                         break
                     else:
                         break
-        for obj in questions:
-            print(obj.playerChoice)
+        print(quiz.correctQuestions)
+        quiz.completed = True
+        quiz.save()
         return redirect("result",pk = quiz.id)          
     context = {"questions": questions}
     return render(request,"base/quiz.html",context)

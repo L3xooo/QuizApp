@@ -2,22 +2,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <div class = "container">
-  <form method = "POST" action = "">
+  <form method = "POST" action = "" id = "myform">
     {% csrf_token %}    
     {% for q in questions %}
     <div class = "question">
-      <h4 class = "question">{{q.number}}.{{q.question}}</h4>
-        <div class = "answers">
-          
+      <div class = "q__header">
+        <div>
+          <h4>{{q.number}}.{{q.question}}</h4>
+        </div>
+        <div class = q__info>
+          <h6>Category : {{q.category}}</h6>
+          <h6>Difficulty : {{q.difficulty}}</h6>
+        </div>
+      </div>
+        <div class = "answers">          
             {% for answer in q.choices %}
-            <!-- <div class="form-check">
-              <input class="form-check-input" type="radio" name="a" id="{{q.number}}" value="option1">
-              <label class="form-check-label" for="exampleRadios1">
-                {{answer}}
-              </label>
-            </div> -->
-
-              <div class = "choice"> 
+              <div class = "choice" id = "{{q.number}}"> 
                 <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
                 <p>{{answer}}</p>
               </div>
@@ -25,51 +25,63 @@
         </div>  
     </div>  
     {% endfor %}
-    <input type = "submit">
+    <input form = "myform" class = "btn" type = "submit">
   </form>
 </div>
 
 
 <script>
-
-
-
 $('.choice').on("click",function(){
+
     var checkbox = $(this).children("input[type = 'checkbox']");
-    checkbox.prop("checked",!checkbox.prop("checked"))
-});
-$('.choice').on("click",function(){
-    $(this).class
-});
+    var siblings = $(this).siblings()
+    siblings.removeClass("active")    //Remove other active class
+    console.log(siblings)
 
+    checkbox.prop("checked",!checkbox.prop("checked"))                      //Will check the checbox with clicking on div "choice"
+    $('input[id="' + (this.id) + '"]').not(checkbox).prop("checked",false); //No other inputs checked
 
+    $(this).addClass("active")      //Add active class to div "Choice" where is input checked
 
-    $('input[type="checkbox"]').on('change', function() {
-      console.log(this.id)
-      $('input[id="' + this.id + '"]').not(this).prop('checked', false);
 });
 </script>
 
 
 <style>
-.active{
-  border: 1px solid green;
-}
+
 body{
+  background: rgb(193,193,222);
+  background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
   font-family: "Fira Sans", sans-serif;
 }
-h4.question{
+
+h4{
   font-size: 14px;
   padding: 0px;
+  margin: 10px;
 }
 
 .container{
   margin: auto;
   max-width: 1200px;
 }
-.text{
-  display: inline-block;
+
+.q__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.q__info{
+  width: 250px;
+  text-align: left;
+  margin-right: 20px;
+}
+
+.q__info h6{
+  margin: 5px;
+}
+
 .box{
   width: 10px;
 }
@@ -79,10 +91,13 @@ h4.question{
 }
 
 .question{
-  background-color: rgb(230, 230, 248);
+  box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
+  background-color: rgb(219, 219, 236);
   padding: 10px;
   border-radius: 10px;
-  margin: 5px
+  margin: 20px
 }
 
 .choice{
@@ -90,6 +105,11 @@ h4.question{
   padding: 5px;
   border-radius: 10px;
   margin: 5px;
+  cursor: pointer;
+}
+
+.active, .choice:hover{
+  border: 2px solid rgb(53, 53, 116);
 }
 
 .choice p{
@@ -101,4 +121,25 @@ h4.question{
 .choice input{
   visibility: hidden;
 }
+
+.btn{
+  background-color: #4f5588;
+  border: none;
+  border-radius: 10px;
+  padding: 19px 47px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(247, 247, 255);
+  margin-top: 20px;
+  margin-bottom: 200px;
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn:hover{
+  background-color: #222d67;
+}
+
 </style>
