@@ -7,10 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Result of {{quiz}}</h1>
+    <div class = "top">
+        <h1>Quiz {{quiz.id}}</h1>
+        <div class = "container">
+            <div class = "q__box__left">
+                {% for q in questions %}
+                    {% if q.playerChoice == q.correctAnswer %}
+                        <a href = "#{{q.number}}" class = "q__circle correct">
+                            <p>{{q.number}}</p>
+                        </a>
+                    {% else %}
+                        <a href = "#{{q.number}}" class = "q__circle wrong">
+                            <p>{{q.number}}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class = "q__box__right">
+                <h3>Player : {{quiz.player}}</h3>
+                <h3>Correct answers : {{quiz.correctQuestions}}</h3>
+            </div>
+        </div>
+    </div>
+    
     <div class = "container">   
         {% for q in questions %}
-            <div class = "question">
+            <div class = "question" id = {{q.number}}>
                 <div class = "q__header">
                     <div>
                         <h4>{{q.number}}.{{q.question}}</h4>
@@ -22,7 +44,6 @@
                 </div>
                 <div class = "answers">          
                     {% for answer in q.choices %}
-
                     {% if answer == q.playerChoice %}
                         {% if answer == q.correctAnswer %}
                             <div class = "choice correct" id = "{{q.number}}"> 
@@ -54,25 +75,35 @@
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 body{
   background: rgb(193,193,222);
   background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
   font-family: "Fira Sans", sans-serif;
 }
 
-h1{
+.top{
     box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
   -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
   -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
   background-color: rgb(219, 219, 236);
-  padding: 10px;
+  padding: 40px;
   border-radius: 10px;
   margin: 20px;
-  width: 500px;
+  width: 700px;
   text-align: center;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.top .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h4{
@@ -98,8 +129,50 @@ h4{
   margin-right: 20px;
 }
 
-.q__info h6{
+.q__info h6, .q__box__right h3{
   margin: 5px;
+}
+
+.q__box__left{
+    width: 300px;
+}
+
+.q__box__right{
+    width: 250px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.q__circle{
+    color: black;
+    font-weight: 700;
+    display: inline-block;
+    background-color: rgb(247, 247, 255);
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    text-align: center;
+}
+
+.q__circle.correct:hover{
+    background-color: rgb(74, 201, 74);
+}
+
+.q__circle.wrong:hover{
+    background-color: rgb(228, 126, 126);
+}
+
+a p{
+    position: relative;
+    top: 0%;
+    transform: translateY(-50%)
 }
 
 .box{
@@ -130,7 +203,7 @@ h4{
 }
 
 .active{
-  border: 2px solid rgb(53, 53, 116);
+  border: 1px solid rgb(53, 53, 116);
 }
 
 .wrong{

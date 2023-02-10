@@ -41,6 +41,8 @@ def quizView(request,pk):
     quiz = Quiz.objects.get(id = pk)
     questions = Question.objects.filter(quiz = quiz)
     print(questions)
+    if quiz.completed == True:
+        return redirect("result",pk = quiz.id)
     if request.method == "POST":
         for obj in questions:
             print("---")
