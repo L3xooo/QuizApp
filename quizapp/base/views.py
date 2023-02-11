@@ -7,7 +7,6 @@ import numpy as np
 
 def createPlayer(request):
     quizs = Quiz.objects.all()[:5]
-
     context = {"quizs":quizs}
     if request.method == "POST":
         name = request.POST.get('name')
@@ -16,8 +15,8 @@ def createPlayer(request):
         quiz = Quiz.objects.create(player = player)
         quiz.save()
         x = requests.get("https://the-trivia-api.com/api/questions")
-        print(x.json())
         number = 1
+        print(x.json)
         for object in x.json():
             array = object["incorrectAnswers"].copy()
             array.append(object["correctAnswer"])
@@ -40,12 +39,10 @@ def createPlayer(request):
 def quizView(request,pk):
     quiz = Quiz.objects.get(id = pk)
     questions = Question.objects.filter(quiz = quiz)
-    print(questions)
     if quiz.completed == True:
         return redirect("result",pk = quiz.id)
     if request.method == "POST":
         for obj in questions:
-            print("---")
             for x in obj.choices:
                 test = request.POST.get(x)
                 if test is not None:
@@ -57,7 +54,6 @@ def quizView(request,pk):
                         break
                     else:
                         break
-        print(quiz.correctQuestions)
         quiz.completed = True
         quiz.save()
         return redirect("result",pk = quiz.id)          

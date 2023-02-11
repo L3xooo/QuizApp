@@ -1,6 +1,8 @@
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+{% extends "base/main.html" %}
+{% load static %}
+
+{% block content %}
+
 <div class = "container">
   <form method = "POST" action = "" id = "myform">
     {% csrf_token %}    
@@ -8,7 +10,7 @@
     <div class = "question">
       <div class = "q__header">
         <div>
-          <h4>{{q.number}}.{{q.question}}</h4>
+          <h4>{{q.number}}. {{q.question}}</h4>
         </div>
         <div class = q__info>
           <h6>Category : {{q.category}}</h6>
@@ -29,6 +31,8 @@
   </form>
 </div>
 
+{% endblock content %}
+
 
 <script>
 $('.choice').on("click",function(){
@@ -46,7 +50,7 @@ $('.choice').on("click",function(){
 });
 </script>
 
-
+<!-- 
 <style>
 
 body{
@@ -142,4 +146,4 @@ h4{
   background-color: #222d67;
 }
 
-</style>
+</style> -->

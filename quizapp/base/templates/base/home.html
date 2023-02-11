@@ -1,151 +1,32 @@
-    <div class = "container">
-        <div class = "left">
-            <h2 class = "navbar">Quiz App By L3xooo</h2>
-        
-            <form class = "form" action = "" method = "POST">
-                <input name = 'name' placeholder="Name">
-                {% csrf_token %}
-                <button class = "btn" type = "submit">Start quiz</button>
-            </form>
+{% extends "base/main.html" %}
 
-        </div>
-        
-        <div class = "right">
-            <h3>Quiz History</h3>
-            {% for quiz in quizs %}
-                <div class = "quiz">
-                    <div class = "q__left">
-                        <a href = "{% url 'result' quiz.id %}" ><h3>Quiz {{quiz.id}}</h3></a>
-                        <h3>{{quiz.player}}</h3>
-                    </div>
-                    <div class = "q__right">
-                        <h5>Correct ques.: {{quiz.correctQuestions}}</h5>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+{% block content %}
+
+<div class = "container">
+    <div class = "left">
+        <h2>Quiz App By L3xooo</h2> 
+        <form class = "form" action = "" method = "POST">
+            <input name = 'name' placeholder=" Name">
+            {% csrf_token %}
+            <button class = "btn" type = "submit">Start quiz</button>
+        </form>
 
     </div>
+    
+    <div class = "right">
+        <h3>Quiz History</h3>
+        {% for quiz in quizs %}
+            <div class = "quiz">
+                <div class = "q__left">
+                    <a href = "{% url 'result' quiz.id %}" ><h3>Quiz {{quiz.id}}</h3></a>
+                    <h3>{{quiz.player}}</h3>
+                </div>
+                <div class = "q__right">
+                    <h5>Correct ques.: {{quiz.correctQuestions}}/10</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
-
-<style>
-body{
-  background: rgb(193,193,222);
-  background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
-  font-family: "Fira Sans", sans-serif;
-}
-
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.container{
-    margin: auto;
-    max-width: 1200px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-}
-
-.navbar{
-    border-radius: 10px;
-    margin: 50px;
-    padding: 10px;
-    font-size: 30px;
-    width: 500px;
-    text-align: center;
-}
-
-.form{
-    width:500px;
-    height: 200px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form input{
-    width: 200px;
-    -webkit-transition: width .35s ease-in-out;
-    transition: width .35s ease-in-out;
-    border: 1px solid #222d67;
-    padding: 15 20px;
-    margin: 10px;
-    border-radius: 10px;
-}
-
-.form input:focus{
-    outline: none;
-    width: 300px;
-    background-color: rgb(247, 247, 255);
-    border: #222d67 1px solid;
-}
-
-.btn{
-  background-color: #4f5588;
-  border: none;
-  border-radius: 10px;
-  padding: 15px 30px;
-  font-size: 15px;
-  font-weight: 700;
-  color: rgb(247, 247, 255);
-  cursor: pointer;
-
-}
-
-.btn:hover{
-  background-color: #222d67;
-}
-
-.right,.left{
-    background-color: rgb(219, 219, 236);
-    padding: 10px;
-    border-radius: 10px;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-    -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-    -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-}
-
-.quiz{
-    background-color: rgb(247, 247, 255);
-    padding: 5px;
-    border-radius: 10px;
-    margin: 5px;
-    display: flex;
-    width: 350px;
-    justify-content: space-around;
-}
-
-.q__left{
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-}
-.q__left h3{
-    padding: 5px;
-    margin: 0px;
-}
-
-.q__left a{
-    text-decoration: none;
-    cursor: pointer;
-    color: black;
-}
-.q__left a:hover{
-    color: #222d67;
-}
-
-.q__right{
-    width: 120px;
-    text-align: left;
-}
-</style>
-
+{% endblock %}

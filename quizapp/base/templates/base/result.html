@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base/main.html' %}
+
+{% block content %}
+<div class = "container result">
     <div class = "top">
         <h1>Quiz {{quiz.id}}</h1>
         <div class = "container">
@@ -25,17 +20,17 @@
             </div>
             <div class = "q__box__right">
                 <h3>Player : {{quiz.player}}</h3>
-                <h3>Correct answers : {{quiz.correctQuestions}}</h3>
+                <h3>Correct answers : {{quiz.correctQuestions}}/10</h3>
             </div>
         </div>
     </div>
     
-    <div class = "container">   
+    <div class = "">   
         {% for q in questions %}
             <div class = "question" id = {{q.number}}>
                 <div class = "q__header">
                     <div>
-                        <h4>{{q.number}}.{{q.question}}</h4>
+                        <h4>{{q.number}}. {{q.question}}</h4>
                     </div>
                     <div class = q__info>
                         <h6>Category : {{q.category}}</h6>
@@ -46,18 +41,18 @@
                     {% for answer in q.choices %}
                     {% if answer == q.playerChoice %}
                         {% if answer == q.correctAnswer %}
-                            <div class = "choice correct" id = "{{q.number}}"> 
-                                <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
+                            <div class = "a__choice correct" id = "{{q.number}}"> 
+                                <!-- <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input"> -->
                                 <p>{{answer}}</p>
                             </div>
                         {% else %}
-                            <div class = "choice wrong" id = "{{q.number}}"> 
+                            <div class = "a__choice wrong" id = "{{q.number}}"> 
                                 <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
                                 <p>{{answer}}</p>
                             </div>
                         {% endif %}
                     {% else %}
-                        <div class = "choice" id = "{{q.number}}"> 
+                        <div class = "a__choice" id = "{{q.number}}"> 
                             <input id = "{{q.number}}" type ="checkbox" name = "{{answer}}" class = "input">
                             <p>{{answer}}</p>
                         </div>
@@ -67,160 +62,5 @@
           </div>  
           {% endfor %}
     </div>
-</body>
-</html>
-
-<script>
-    $("input:checkbox").click(function() { return false; });
-</script>
-
-<style>
-html {
-  scroll-behavior: smooth;
-}
-
-body{
-  background: rgb(193,193,222);
-  background: linear-gradient(0deg, rgba(193,193,222,1) 0%, rgba(151,154,195,1) 27%, rgba(111,116,163,1) 43%, rgba(79,85,136,1) 60%, rgba(34,45,103,1) 95%);
-  font-family: "Fira Sans", sans-serif;
-}
-
-.top{
-    box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  background-color: rgb(219, 219, 236);
-  padding: 40px;
-  border-radius: 10px;
-  margin: 20px;
-  width: 700px;
-  text-align: center;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.top .container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-h4{
-  font-size: 14px;
-  padding: 0px;
-  margin: 10px;
-}
-
-.container{
-  margin: auto;
-  max-width: 1200px;
-}
-
-.q__header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.q__info{
-  width: 250px;
-  text-align: left;
-  margin-right: 20px;
-}
-
-.q__info h6, .q__box__right h3{
-  margin: 5px;
-}
-
-.q__box__left{
-    width: 300px;
-}
-
-.q__box__right{
-    width: 250px;
-    text-align: left;
-    margin-right: 20px;
-}
-
-.q__circle{
-    color: black;
-    font-weight: 700;
-    display: inline-block;
-    background-color: rgb(247, 247, 255);
-    width: 40px;
-    height: 40px;
-    margin: 5px;
-    border-radius: 50%;
-}
-
-a{
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    text-align: center;
-}
-
-.q__circle.correct:hover{
-    background-color: rgb(74, 201, 74);
-}
-
-.q__circle.wrong:hover{
-    background-color: rgb(228, 126, 126);
-}
-
-a p{
-    position: relative;
-    top: 0%;
-    transform: translateY(-50%)
-}
-
-.box{
-  width: 10px;
-}
-.answers{
-  display: flex;
-  flex-direction: column;
-}
-
-.question{
-  box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  -webkit-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  -moz-box-shadow: -1px 1px 21px 2px rgba(0,0,0,0.52);
-  background-color: rgb(219, 219, 236);
-  padding: 10px;
-  border-radius: 10px;
-  margin: 20px
-}
-
-
-
-.choice{
-  background-color: rgb(247, 247, 255);
-  padding: 5px;
-  border-radius: 10px;
-  margin: 5px;
-}
-
-.active{
-  border: 1px solid rgb(53, 53, 116);
-}
-
-.wrong{
-    border: 2px solid red;
-}
-
-.correct{
-    border: 2px solid green;
-}
-
-.choice p{
-  display: inline-block;
-  padding: 0px;
-  margin: 0px;
-}
-
-.choice input{
-  visibility: hidden;
-}
-</style>
+</div>  
+{% endblock content %}
